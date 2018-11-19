@@ -135,9 +135,6 @@ BsSetupKernelContext(
 	if( !NT_SUCCESS( status = LdrLoadDll( NULL, &flags, &name, &ntoskrnl ) ) )
 		return status;
 
-	//if( !NT_SUCCESS( status = BspFindActiveProcessLinksOffset( ntoskrnl, &ctx->m_apl_offset ) ) )
-	//	return status;
-
 	if( !NT_SUCCESS( status = BspFindInitialSystemProcessOffset( ntoskrnl, &ctx->m_sysproc_offset ) ) )
 		return status;
 
@@ -149,12 +146,6 @@ BsSetupKernelContext(
 
 	if( !NT_SUCCESS( status = BspGetRoutineInsDisp32( ntoskrnl, "PsGetProcessPeb", &ctx->m_peb_offset ) ) )
 		return status;
-
-	//
-	//if( !NT_SUCCESS( status = BspFindPebOffset( ntoskrnl, &ctx->m_peb_offset ) ) )
-	//	return status;
-
-	//ctx->m_pid_offset = ( ctx->m_apl_offset - 8 );
 
 	ctx->m_apl_offset = ( ctx->m_pid_offset + 8 );
 
